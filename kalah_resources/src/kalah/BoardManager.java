@@ -32,6 +32,21 @@ public class BoardManager {
         this.player2Store = p2Store;
     }
     
+        
+    // update display values with backend stored values
+    public int[] getBoardValues(){ 
+        
+        values[0] = this.player1Store.getSeeds();
+        values[1] = this.player2Store.getSeeds();
+        
+        for(int i = 0; i < KalahConstants.numberOfHouses; i++){
+            values[2+i] = this.player1Houses[i].getSeeds();
+            values[8+i] = this.player2Houses[i].getSeeds();
+        }
+        
+        return values;
+        
+    }
     
     // Return values : 0 = empty house try again, 1 = anotherTurn, 2 = nextPlayerTurn
     public int moveSeeds(int houseNum, boolean playerTurn){ 
@@ -108,30 +123,6 @@ public class BoardManager {
             this.player1Houses[currentHouse].incrementSeeds();
         }
         seedsInHouse--; 
-        
-    }
-    
-        // update display values with backend stored values
-    public int[] parseValues(){ 
-        
-        values[0] = this.player1Store.getSeeds();
-        values[1] = this.player2Store.getSeeds();
-        
-        for(int i = 0; i < KalahConstants.numberOfHouses; i++){
-            values[2+i] = this.player1Houses[i].getSeeds();
-            values[8+i] = this.player2Houses[i].getSeeds();
-        }
-        
-        return values;
-        
-    }
-    
-    // check if one side has been cleared - graceful end
-    public boolean checkGameStatus(boolean playerTurn){ 
-        
-        boolean checkEndGameRule = GameRules.endGameRule(playerTurn, this);
-        
-        return checkEndGameRule;
         
     }
     

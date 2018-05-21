@@ -17,7 +17,7 @@ public class GameController {
     boolean quit = false;
     int turnStatus = 2; // 0 = empty house, 1 = anotherTurn, 2 = nextPlayerTurn
     int selectedHouse = 0;
-    int[] gameValues = new int[(KalahConstants.numberOfHouses*2) + KalahConstants.numberOfPlayers];
+    int[] boardValues = new int[(KalahConstants.numberOfHouses*2) + KalahConstants.numberOfPlayers];
     
     BoardManager game;
     TurnManager turnManager;
@@ -36,20 +36,19 @@ public class GameController {
         
         while(!gameOver){
 
-            // update the backend gameboard and check status of the game
-            gameValues = game.parseValues();
-            gameOver = game.checkGameStatus(turnManager.getPlayerTurn()); 
+            boardValues = game.getBoardValues();
+            gameOver = GameRules.endGameRule(turnManager.getPlayerTurn(), game); 
 
-            outIO.printBoard(gameValues);
+            outIO.printBoard(boardValues);
             manageUserInput();                   
 
             if(gameOver){
 
-                outIO.printEndGame(gameValues);
+                outIO.printEndGame(boardValues);
 
                 if(!quit){ 
 
-                    outIO.printPlayerScore(gameValues);
+                    outIO.printPlayerScore(boardValues);
 
                 }
             } else { // move seeds if the game isn't over and change user turns
