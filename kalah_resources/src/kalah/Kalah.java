@@ -30,12 +30,13 @@ public class Kalah {
         
         // create game components
         BoardManager moveManager = new BoardManager(player1Houses, player2Houses, player1, player2); // create new game
-        GameController gameController = new GameController();
+        TurnManager turnManager = new TurnManager();
         InputManager inManager = new InputManager(io);
         OutputManager outManager = new OutputManager(io);
+        GameController gameController = new GameController(moveManager, turnManager, inManager, outManager);
         
         // start game   
-        gameController.start(moveManager, inManager, outManager);
+        gameController.start();
 
     }
         

@@ -12,17 +12,17 @@ package kalah;
 public class GameRules {
     
         // check if one side has been cleared - graceful end
-    public static boolean endGameRuleCheck(boolean playerTurn, House[] player1Houses, House[] player2Houses){ // refactor this out
+    public static boolean endGameRule(boolean playerTurn, BoardManager board){ // refactor this out
         int count1 = 0, count2 = 0;
         
         for(int i = 0; i < KalahConstants.numberOfHouses; i++){
             
             if(playerTurn){
-                if(player2Houses[i].getSeeds() == 0){
+                if(board.player2Houses[i].getSeeds() == 0){
                     count2++;
                 }
             } else {
-                if(player1Houses[i].getSeeds() == 0){
+                if(board.player1Houses[i].getSeeds() == 0){
                 count1++;
                 }
             }
@@ -33,16 +33,16 @@ public class GameRules {
         
     }
     
-    public static boolean captureRuleCheck(boolean startingPlayerTurn, boolean endingPlayerTurn, House[] player1Houses, House[] player2Houses, int currentHouse){ 
+    public static boolean captureRule(boolean startingPlayerTurn, BoardManager board){ 
             
         int seedsInOppositeHouse;
         
-        if(endingPlayerTurn){ // ends on player 2 side
+        if(board.endingPlayerTurn){ // ends on player 2 side
             
             if(startingPlayerTurn){ // was originally player 2 turn
-                seedsInOppositeHouse = player1Houses[(KalahConstants.numberOfHouses-1) - currentHouse].getSeeds();
+                seedsInOppositeHouse = board.player1Houses[(KalahConstants.numberOfHouses-1) - board.currentHouse].getSeeds();
                 
-                if(player2Houses[currentHouse].getSeeds() == 1 && seedsInOppositeHouse > 0){
+                if(board.player2Houses[board.currentHouse].getSeeds() == 1 && seedsInOppositeHouse > 0){
                     return true;
                 }
             }
@@ -50,9 +50,9 @@ public class GameRules {
         else { // ends on player 1 side
             
             if(!startingPlayerTurn){ // was originally player 1 turn
-                seedsInOppositeHouse = player2Houses[(KalahConstants.numberOfHouses-1) - currentHouse].getSeeds();
+                seedsInOppositeHouse = board.player2Houses[(KalahConstants.numberOfHouses-1) - board.currentHouse].getSeeds();
                 
-                if(player1Houses[currentHouse].getSeeds() == 1 && seedsInOppositeHouse > 0){ 
+                if(board.player1Houses[board.currentHouse].getSeeds() == 1 && seedsInOppositeHouse > 0){ 
                     return true;
                 }
             }

@@ -129,20 +129,21 @@ public class BoardManager {
     // check if one side has been cleared - graceful end
     public boolean checkGameStatus(boolean playerTurn){ 
         
-        boolean checkEndGameRule = GameRules.endGameRuleCheck(playerTurn, player1Houses, player2Houses);
+        boolean checkEndGameRule = GameRules.endGameRule(playerTurn, this);
         
         return checkEndGameRule;
         
     }
     
     public int captureCheck(boolean playerTurn){ 
-        int seedsInOppositeHouse;
+        
         
         if(currentHouse == KalahConstants.emptyHouse){
             return 1; 
         }
         
-        boolean checkCaptureCheckRule = GameRules.captureRuleCheck(playerTurn, endingPlayerTurn, this.player1Houses, this.player2Houses, currentHouse);
+        int seedsInOppositeHouse;
+        boolean checkCaptureCheckRule = GameRules.captureRule(playerTurn, this);
         
         if(checkCaptureCheckRule){
             if(endingPlayerTurn){ // ends on player 2 side
