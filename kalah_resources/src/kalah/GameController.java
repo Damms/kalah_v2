@@ -10,7 +10,7 @@ package kalah;
  * @author Jaedyn
  */
 
-public class GameController {
+public class GameController implements KalahGameRules {
    
     String keyBoard = "1";
     boolean gameOver = false;
@@ -37,7 +37,7 @@ public class GameController {
         while(!gameOver){
 
             boardValues = game.getBoardValues();
-            gameOver = GameRules.endGameRule(turnManager.getPlayerTurn(), game); 
+            gameOver = endGameRule(turnManager.getPlayerTurn()); 
 
             outIO.printBoard(boardValues);
             manageUserInput();                   
@@ -91,6 +91,28 @@ public class GameController {
             turnStatus = 1;
             
         }
+    }
+
+    @Override
+    public boolean endGameRule(boolean playerTurn) {
+        
+        int count1 = 0, count2 = 0;
+        
+        for(int i = 0; i < KalahConstants.numberOfHouses; i++){
+            
+            if(playerTurn){
+                if(game.player2Houses[i].getSeeds() == 0){
+                    count2++;
+                }
+            } else {
+                if(game.player1Houses[i].getSeeds() == 0){
+                count1++;
+                }
+            }
+            
+        }
+        
+        return count1 == KalahConstants.numberOfHouses || count2 == KalahConstants.numberOfHouses;
     }
     
 }

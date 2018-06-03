@@ -10,7 +10,7 @@ package kalah;
  * @author Jaedyn
  */
 
-public class BoardManager implements KalahBoardLogic{   
+public class BoardManager implements KalahBoardLogic, KalahBoardRules{   
     int seedsInHouse = 0;
     int firstHouse = -1;
     int currentHouse;        
@@ -134,7 +134,7 @@ public class BoardManager implements KalahBoardLogic{
         }
         
         int seedsInOppositeHouse;
-        boolean checkCaptureCheckRule = GameRules.captureRule(playerTurn, this);
+        boolean checkCaptureCheckRule = captureRule(playerTurn);
         
         if(checkCaptureCheckRule){
             if(endingPlayerTurn){ // ends on player 2 side
@@ -163,6 +163,33 @@ public class BoardManager implements KalahBoardLogic{
             }
         }
         return 2; 
+    }
+
+    @Override
+    public boolean captureRule(boolean startingPlayerTurn) {
+        int seedsInOppositeHouse;
+        
+        if(endingPlayerTurn){ // ends on player 2 side
+            
+            if(startingPlayerTurn){ // was originally player 2 turn
+                seedsInOppositeHouse = player1Houses[(KalahConstants.numberOfHouses-1) - currentHouse].getSeeds();
+                
+                if(player2Houses[currentHouse].getSeeds() == 1 && seedsInOppositeHouse > 0){
+                    return true;
+                }
+            }
+        } 
+        else { // ends on player 1 side
+            
+            if(!startingPlayerTurn){ // was originally player 1 turn
+                seedsInOppositeHouse = player2Houses[(KalahConstants.numberOfHouses-1) - currentHouse].getSeeds();
+                
+                if(player1Houses[currentHouse].getSeeds() == 1 && seedsInOppositeHouse > 0){ 
+                    return true;
+                }
+            }
+        }
+        return false; 
     }
   
 }
