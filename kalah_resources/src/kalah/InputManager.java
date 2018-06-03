@@ -12,7 +12,7 @@ import com.qualitascorpus.testsupport.IO;
  * @author Jaedyn
  */
 
-public class InputManager {
+public class InputManager implements KalahBoardInput {
     
     IO io;
     
@@ -21,6 +21,7 @@ public class InputManager {
     }
      
     
+    @Override
     public String getUserSelectedHouse(boolean playerTurn) {
        String userInput;
        

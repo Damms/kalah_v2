@@ -11,7 +11,7 @@ import com.qualitascorpus.testsupport.IO;
  *
  * @author Jaedyn
  */
-public class OutputManager {
+public class OutputManager implements KalahBoardDisplay {
     
     IO io;
     int[] playerScores = new int[2];
@@ -21,6 +21,7 @@ public class OutputManager {
     }
     
     
+    @Override
      public void printBoard(int[] values) {
         io.println(KalahConstants.boardBreak1); 
         String player2Line = String.format(KalahConstants.topBoardOutput, values[13], values[12], values[11], values[10], values[9], values[8], values[0]);
@@ -31,6 +32,7 @@ public class OutputManager {
         io.println(KalahConstants.boardBreak1);
     }
     
+    @Override
     public void printPlayerScore(int[] values) {
         updatePlayerScores(values);
         
@@ -46,11 +48,13 @@ public class OutputManager {
         }
     }
 
+    @Override
     public void printEndGame(int[] values) {
         io.println(KalahConstants.gameOverMessage);
         printBoard(values);
     }
     
+    @Override
     public void printEmptyHouse() {
        io.println(KalahConstants.emptyHouseMessage); 
     }

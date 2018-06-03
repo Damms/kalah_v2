@@ -1,0 +1,5 @@
+Windows:
+java -cp junit-3.8.2.jar;kalah.jar;jdam534_softeng701_a5.jar junit.textui.TestRunner kalah.test.TestKalah
+
+Mac:
+java -cp junit-3.8.2.jar:kalah.jar:jdam534_softeng701_a5.jar junit.textui.TestRunner kalah.test.TestKalah

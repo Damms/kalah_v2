@@ -10,7 +10,7 @@ package kalah;
  * @author Jaedyn
  */
 
-public class BoardManager {   
+public class BoardManager implements KalahBoardLogic{   
     int seedsInHouse = 0;
     int firstHouse = -1;
     int currentHouse;        
